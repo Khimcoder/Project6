@@ -5,7 +5,23 @@ input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer;}b
 
 * { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
 
+
+.title{
+	text-align: center;
+}
+.subTitle{
+		text-align: center;
+	}
 .cityContainer {
 	display: flex;
+	flex-wrap: wrap;
+	.cityPost{
+		width: calc(100% / 4);
+	}
 
+}
+
+form {
+	width: 50%;
+	margin: auto;
 }

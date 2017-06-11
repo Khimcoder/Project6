@@ -1,5 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+// import {
+//     BrowserRouter as Router,
+//     NavLink as Link,
+//     Route
+// } from 'react-router-dom';
 
 
 
@@ -18,7 +23,6 @@ import ReactDOM from 'react-dom';
 // //to check if user is logged in
 // const auth = firebase.auth();
 // var provider = new firebase.auth.GoogleAuthProvider();
-
 
 const dbRef = firebase.database().ref('/');
 
@@ -45,7 +49,6 @@ const dbRef = firebase.database().ref('/');
 
 // Nice to have: have user change display of posts to newest-oldest or Alphabetical
 // User post authentication!
-
 const anyEmpty = obj => {
 	for (let key in obj) {
 		if (obj[key] === '') {
@@ -83,51 +86,40 @@ class App extends React.Component {
 		if (anyEmpty(this.state.form)) return;
 
 		// this.setState();
-		console.log(this.state);
+		// console.log(this.state);
 		this.setState({
 			posts: [...this.state.posts, this.state.form]
 		});
 
-		dbRef.push(this.state)
+		dbRef.push(this.state.form)
 	}
 	handleChange(e) {
 		console.log(e);
 		this.setState({
-			form: Object.assign({}, this.state.form, { [e.target.name]: e.target.value })
+			// form: Object.assign({}, this.state.form, { [e.target.name]: e.target.value })
 			//.name refers to "inputs below  = the value they type in 'string' set states
+			[e.target.name]: e.target.value 
 		});
 	}
+
     render() {
     	console.log(this.state.form);
       	return (
 	        <main>
-	             <h1>Hi 5</h1>
+	             <h1 className="title">Hi 5</h1>
+	             <h1 className="subTitle">Top 5 cool things about a City</h1>
 	             <div className="cityContainer">
 	            {/*Maps over the posts array and grabs all the object values and spits it out*/}
 	             	{this.state.posts.map((post, i) => {
 	             		return (
 	             			<div className="cityPost" key={i}>
-	             				<h2>
-	             					City: {post.city}	
-	             				</h2>
-	             				<p>
-	             				 	#1: {post.cool1}	
-	             				</p>
-	             				<p>
-	             					#2: {post.cool2}
-	             				</p>
-	             				<p>
-	             					#3: {post.cool3}
-	             				</p>
-	             				<p>
-	             					#4: {post.cool4}	
-	             				</p>
-	             				<p>
-	             					#5: {post.cool5}
-	             				</p>
-	             				<p>
-	             					Traveler: {post.userName}	
-	             				</p>
+	             				<h2>City: {post.city}</h2>
+	             				<p>#1: {post.cool1}</p>
+	             				<p>#2: {post.cool2}</p>
+	             				<p>#3: {post.cool3}</p>
+	             				<p>#4: {post.cool4}	</p>
+	             				<p>#5: {post.cool5}</p>
+	             				<p>Traveler: {post.userName}</p>
 	             			</div>
 	             		)
 	             	})}
@@ -136,7 +128,7 @@ class App extends React.Component {
 		        	<input name="pic" value={this.state.form.pic} onChange={this.handleChange} type type="text" placeholder="Upload a Pic" />
 					<input name="city" value={this.state.form.city} onChange={this.handleChange} type type="text" placeholder="Enter the City" />
 					<input name="cool1" value={this.state.form.cool1} onChange={this.handleChange} type type="text" placeholder="#1 cool thing" />
-					<input name="cool2" value={this.state.form.coo2} onChange={this.handleChange} type type="text" placeholder="#2 cool thing" />
+					<input name="cool2" value={this.state.form.cool2} onChange={this.handleChange} type type="text" placeholder="#2 cool thing" />
 					<input name="cool3" value={this.state.form.cool3} onChange={this.handleChange} type type="text" placeholder="#3 cool thing" />
 					<input name="cool4" value={this.state.form.cool4} onChange={this.handleChange} type type="text" placeholder="#4 cool thing" />
 					<input name="cool5" value={this.state.form.cool5} onChange={this.handleChange} type type="text" placeholder="#5 cool thing" />
