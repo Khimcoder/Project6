@@ -18,10 +18,22 @@ input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer;}b
 	.cityPost{
 		width: calc(100% / 4);
 	}
-
 }
 
 form {
 	width: 50%;
 	margin: auto;
+	border: 7px solid rebeccapurple;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; 
 }
+
+
+
+img {
+	width: 100px;
+	height: 100px;
+}
+
