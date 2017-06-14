@@ -6,7 +6,6 @@ import {
 	Route
 } from 'react-router-dom';
 
- // request.auth != null      ......for storage
   // Initialize Firebase
   var config = {
 	apiKey: "AIzaSyBEgr2IMuDGrIGTqzil5hZE6GP56P68OP0",
@@ -22,22 +21,11 @@ import {
 // const auth = firebase.auth();
 // var provider = new firebase.auth.GoogleAuthProvider();
 
-//Anyone can see the global App
-// User has to sign in to be able to post a cityCard.
-// To Log In:
-// push LogIn Button
-// Form details:
-	// Hit POST/submit
-	// [Alert user to log in if not]
-
-// Store what user types in into State/root of APP
-// Add a 'Add Post' button that sends our todo to firebase
-// Grab data from firebase (ID of the Post) and store it in our state
-// display the post on global page
-
 // Nice to have: have user change display of posts to newest-oldest or Alphabetical
 // User post authentication!
 
+// Store what user types in from form
+	
 class CityGallery extends React.Component {
 	constructor() {
 		super();
@@ -61,42 +49,45 @@ class CityGallery extends React.Component {
 	render() {
 		return (
 			<div>
+				<h1 className="subTitle">Top 5 cool things about a City</h1>
 				<div className="cityContainer">
 					{/*Maps over the posts array and grabs all the object values and spits it out*/}
-					<ol >
+					<ol className="gallery">
 					{this.state.posts.map((post, i) => {
-						console.log(post.key);
 						return (
-							<li className="userPost" key={i}>
-								{/*<h2>City: {post.city}</h2>*/}
+							<li className="galleryPost" key={i}>
 								<Link to={`/citydetails/${post.key}`}>
-									<img src={post.pic} className="userPost-Image"/>
+									<img src={post.pic} className="galleryPost-Image"/>
 								</Link>
-								{/*
-								<p>1. {post.cool1}</p>
-								<p>2. {post.cool2}</p>
-								<p>3. {post.cool3}</p>
-								<p>4. {post.cool4}</p>
-								<p>5. {post.cool5}</p>
-								<p>Traveler: {post.userName}</p>
-								<Counter />
-								*/}
 							</li>
 						)
 					})}
 					</ol>
 				</div>
+				<div className="title-form">
+					<h2>POST YOUR ADVENTURE!</h2>
+					<h3>Share Your Favourite City Pic & Hi 5 Moments By Posting here! </h3>
+				</div>
 				<form>
+					<label htmlFor="pic">Upload:</label>
 					 <input name="pic" accept="image/*" onChange={this.handleUpload} type type="file" />
+					 <label htmlFor="city">City:</label>
 					<input name="city" value={this.state.city} onChange={this.handleChange} type type="text" placeholder="Enter the City" />
+					<label htmlFor="cool1">Hi 5s:</label>
 					<input name="cool1" value={this.state.cool1} onChange={this.handleChange} type type="text" placeholder="#1 cool thing" />
 					<input name="cool2" value={this.state.cool2} onChange={this.handleChange} type type="text" placeholder="#2 cool thing" />
 					<input name="cool3" value={this.state.cool3} onChange={this.handleChange} type type="text" placeholder="#3 cool thing" />
 					<input name="cool4" value={this.state.cool4} onChange={this.handleChange} type type="text" placeholder="#4 cool thing" />
 					<input name="cool5" value={this.state.cool5} onChange={this.handleChange} type type="text" placeholder="#5 cool thing" />
+					<label htmlFor="userName">Name:</label>
 					<input name="userName" value={this.state.userName} onChange={this.handleChange} type type="text" placeholder="Enter your name" />
-					<button onClick={(e) => this.handleSubmit(e)} type="submit">POST*_*</button>
+					<div className="buttonContainer">
+						<button onClick={(e) => this.handleSubmit(e)} type="submit"><span>POST</span></button>
+					</div>
 				</form>
+				<footer>
+					<p>&hearts;Thank you for visiting! &copy; 2017 KodeByKhim</p>
+				</footer>
 			</div>
 		)
 	}
@@ -110,7 +101,6 @@ class CityGallery extends React.Component {
 				postsArray.push(posts[key]);
 		// assign the objects default key to be its new unique key!
 			}
-			// console.log(postsArray);
 			this.setState({
 				posts: postsArray
 			});
@@ -120,8 +110,7 @@ class CityGallery extends React.Component {
 		handleSubmit(e) {
 			e.preventDefault();
 			if (anyEmpty(this.state)) return;
-			// this.setState();
-			// console.log(this.state);
+			
 			const dbRef = firebase.database().ref('/');
 			const post = {
 				pic: this.state.pic,
@@ -145,7 +134,9 @@ class CityGallery extends React.Component {
 					cool5: '',
 					userName: ''
 			});
+
 		}
+
 
 		handleChange(e) {
 			console.log(e);
@@ -180,14 +171,12 @@ class CityDetails extends React.Component {
 		}
 	}
 	componentWillMount() {
-		// console.log(this.props,nextProps)
-		console.log(this.props.match.params.id);
+		// console.log(this.props.match.params.id);
 		// //Connect to firebase DB with this.props.match.params.id as the ref,
 			const dbRef = firebase.database().ref(`/${this.props.match.params.id}`);
 			dbRef.on('value', (snapshot) => {
 				const dbCity = snapshot.val()
 	  	
-			    console.log(dbCity)
 			    this.setState ({
 			    	dbCity
 			    })
@@ -202,7 +191,24 @@ class CityDetails extends React.Component {
 	render() {
 		return (
 			<div>
-				{this.state.dbCity.city}
+				<h1 className="cityTitle">Top 5 cool things about <span>{this.state.dbCity.city}</span></h1>
+				<p className="backTo">Back to</p>
+				<div className="city">
+					<div className="city-image">
+						<img src={this.state.dbCity.pic} className="city-image__image"/>
+					</div>
+					<div className="city-item">
+						<ol className="city-item-list">
+							<li className="city-item-list__cool">{this.state.dbCity.cool1}</li>
+							<li className="city-item-list__cool">{this.state.dbCity.cool2}</li>
+							<li className="city-item-list__cool">{this.state.dbCity.cool3}</li>
+							<li className="city-item-list__cool">{this.state.dbCity.cool4}</li>
+							<li className="city-item-list__cool">{this.state.dbCity.cool5}</li>
+						</ol>
+						<p className="city-item__name">Traveler: {this.state.dbCity.userName}</p>
+						<Counter />
+					</div>
+	            </div>
             </div>
 		)
 	}
@@ -228,13 +234,31 @@ class Counter extends React.Component {
 		this.increment = this.increment.bind(this);
 	}
 	increment(){
+		const dbRef = firebase.database().ref('dbCity/likes')
+		dbRef.set(this.state.Likes);
+        
 		this.setState({
 			Likes: this.state.Likes + 1
+
 		});
+	}
+	componentDidMount(){
+		// const dbRef = firebase.database().ref('dbCity/likes');
+		// dbRef.on('setvalue', (res) => {
+		// 	const like = res.val();
+		// 	const likesArray = [];
+		// 	for (let key in like) {
+		// 		likesArray.set(like[key]);
+		// // assign the objects default key to be its new unique key!
+		// 	}
+		// 	this.setState({
+		// 		likes: likesArray
+		// 	});
+		// }); 			
 	}
 	render () {
 		return (
-			<div>
+			<div className="counter">
 				<button onClick={this.increment}>🖐 </button>
 				 "{this.state.Likes}"
 			</div>
@@ -257,24 +281,21 @@ class App extends React.Component {
 				userName: ''
 			}
 		};
-
 	}
 
 	render() {
-		// console.log(this.state.form);
 		return (
 			<Router>
 				<main>
-					<h1 className="title">Hi 5</h1>
-					<h1 className="subTitle">Top 5 cool things about a City</h1>
-					<div>
-						<nav>
-							<Link to="/">City Gallery</Link>
-							
-						</nav>
-						<Route exact path="/" component={CityGallery} />
-						<Route path="/citydetails/:id" component={CityDetails} />
-					</div>
+					<nav>
+						<h1 className="title">Hi 5</h1>
+						<Link to="/">City Gallery</Link>
+						<div className="nav-arrow">
+							<img src="..//public/styles/assets/nounarrow1.png" alt=""/>
+						</div>
+					</nav>
+					<Route exact path="/" component={CityGallery} />
+					<Route path="/citydetails/:id" component={CityDetails} />
 				</main>
 			</Router>
 		)

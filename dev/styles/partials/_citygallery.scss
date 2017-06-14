@@ -1,0 +1,100 @@
+.title-form{
+	text-align: center;
+}
+
+form {
+	margin: auto;
+	width: 60%;
+	border: 7px solid peachpuff;
+	margin-bottom: 5%;
+	background: lightgoldenrodyellow;
+	padding: 3%;
+	border-radius: 10px;
+    input{
+      	font: .9em/1.5em "handwriting", sans-serif;
+      	letter-spacing: 2px;
+      	border: none;
+      	padding: 4px 18px;
+      	margin: 0;
+      	width: 100%;
+      	background: none;
+      	border-bottom: 1px solid black;
+    }
+    label{
+    	padding-left: 19px;
+
+    }
+}
+
+.buttonContainer{
+	text-align: center;
+	button {
+		border-radius: 10px;
+		background-image:linear-gradient(rgba(255, 255, 255,0.2),rgba(255,255,255,0.4)), url(./assets/br.png);
+		border: none;
+		text-align: center;
+		font-size: 2rem;
+		padding: 12px;
+		width: 179px;
+		transition: all 0.5s;
+		margin: 5px;	    
+	}
+}
+
+button span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+button span:after {
+        content: '\00bb';
+        position: absolute;
+        opacity: 0;
+        top: 0;
+        right: -20px;
+        transition: 0.5s;
+}
+button:hover span {
+    padding-right: 25px;
+}
+
+button:hover span:after {
+   opacity: 1;
+   right: 0;
+}
+
+// Gallery main pg
+ol.gallery{
+	display: flex;
+    flex-wrap: wrap;
+    padding: 0;
+    margin: 0;
+    justify-content: space-around;
+    list-style: none;
+   	.galleryPost{
+   		margin: 1%;
+   	}
+}
+
+.galleryPost-Image {
+	width: 200px;
+	height: 200px;
+	border-radius: 50%;
+	
+}
+
+.galleryPost-Image{
+	transform: scale(1);
+	transition: .3s ease-in-out;
+	&:hover{
+		transform: scale(1.1);	
+	}
+}
+
+@media (max-width: 480px) {
+	form {
+		width: 90%;
+	}
+}	
+
