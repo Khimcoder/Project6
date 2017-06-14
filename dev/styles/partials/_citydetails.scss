@@ -7,7 +7,7 @@
 	font-size: 2.5rem;
 }
 .cityTitle span{
-	font-size: 3rem;
+	font-size: 3.5rem;
 	font-weight: bold;
 	text-shadow: 1px 1px lightsalmon;
 }
@@ -43,6 +43,11 @@
 		.city-item__title{
 			font-size: 3rem;
 			text-align: center;
+		}
+		.city-item__name{
+			text-align: center;
+    		margin: 0;
+    		font-size: 1.5rem;
 		}
 	}
 .counter{

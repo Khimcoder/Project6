@@ -52,6 +52,9 @@ nav {
 nav{
 	.nav-arrow{
 		width: 100px;
+		background-image: url(./assets/nounarrow1.png);
+		background-size: contain;
+		z-index: 2;
 		img{
 			width: 100%;
 		}

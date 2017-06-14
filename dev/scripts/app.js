@@ -17,15 +17,7 @@ import {
   };
   firebase.initializeApp(config);
 
-// //to check if user is logged in
-// const auth = firebase.auth();
-// var provider = new firebase.auth.GoogleAuthProvider();
-
-// Nice to have: have user change display of posts to newest-oldest or Alphabetical
-// User post authentication!
-
-// Store what user types in from form
-	
+// Store what user types in from form	
 class CityGallery extends React.Component {
 	constructor() {
 		super();
@@ -206,7 +198,9 @@ class CityDetails extends React.Component {
 							<li className="city-item-list__cool">{this.state.dbCity.cool5}</li>
 						</ol>
 						<p className="city-item__name">Traveler: {this.state.dbCity.userName}</p>
-						<Counter />
+						<div className="counter">
+							<button>🖐 </button>
+						</div>
 					</div>
 	            </div>
             </div>
@@ -225,46 +219,46 @@ const anyEmpty = obj => {
 	return false;
 }
 // counts likes on cityPost
-class Counter extends React.Component {
-	constructor(){
-		super();
-		this.state = {
-			Likes: 0
-		};
-		this.increment = this.increment.bind(this);
-	}
-	increment(){
-		const dbRef = firebase.database().ref('dbCity/likes')
-		dbRef.set(this.state.Likes);
+// class Counter extends React.Component {
+// 	constructor(){
+// 		super();
+// 		this.state = {
+// 			Likes: 0
+// 		};
+// 		this.increment = this.increment.bind(this);
+// 	}
+// 	increment(){
+// 		const dbRef = firebase.database().ref('dbCity/likes')
+// 		dbRef.set(this.state.Likes);
         
-		this.setState({
-			Likes: this.state.Likes + 1
+// 		this.setState({
+// 			Likes: this.state.Likes + 1
 
-		});
-	}
-	componentDidMount(){
-		// const dbRef = firebase.database().ref('dbCity/likes');
-		// dbRef.on('setvalue', (res) => {
-		// 	const like = res.val();
-		// 	const likesArray = [];
-		// 	for (let key in like) {
-		// 		likesArray.set(like[key]);
-		// // assign the objects default key to be its new unique key!
-		// 	}
-		// 	this.setState({
-		// 		likes: likesArray
-		// 	});
-		// }); 			
-	}
-	render () {
-		return (
-			<div className="counter">
-				<button onClick={this.increment}>🖐 </button>
-				 "{this.state.Likes}"
-			</div>
-		)
-	}
-}
+// 		});
+// 	}
+// 	componentDidMount(){
+// 		// const dbRef = firebase.database().ref('dbCity/likes');
+// 		// dbRef.on('setvalue', (res) => {
+// 		// 	const like = res.val();
+// 		// 	const likesArray = [];
+// 		// 	for (let key in like) {
+// 		// 		likesArray.set(like[key]);
+// 		// // assign the objects default key to be its new unique key!
+// 		// 	}
+// 		// 	this.setState({
+// 		// 		likes: likesArray
+// 		// 	});
+// 		// }); 			
+// 	}
+// 	render () {
+// 		return (
+// 			<div className="counter">
+// 				<button onClick={this.increment}>🖐 </button>
+// 				 "{this.state.Likes}"
+// 			</div>
+// 		)
+// 	}
+// }
 class App extends React.Component {
 	constructor() {
 		super();
@@ -291,7 +285,7 @@ class App extends React.Component {
 						<h1 className="title">Hi 5</h1>
 						<Link to="/">City Gallery</Link>
 						<div className="nav-arrow">
-							<img src="..//public/styles/assets/nounarrow1.png" alt=""/>
+							
 						</div>
 					</nav>
 					<Route exact path="/" component={CityGallery} />
