@@ -96,8 +96,7 @@ class CityGallery extends React.Component {
 			this.setState({
 				posts: postsArray
 			});
-		});
-		
+		});	
 	}
 		handleSubmit(e) {
 			e.preventDefault();
@@ -126,9 +125,7 @@ class CityGallery extends React.Component {
 					cool5: '',
 					userName: ''
 			});
-
 		}
-
 
 		handleChange(e) {
 			console.log(e);
@@ -168,7 +165,7 @@ class CityDetails extends React.Component {
 			const dbRef = firebase.database().ref(`/${this.props.match.params.id}`);
 			dbRef.on('value', (snapshot) => {
 				const dbCity = snapshot.val()
-	  	
+	  		// console.log(dbCity);
 			    this.setState ({
 			    	dbCity
 			    })
@@ -198,9 +195,7 @@ class CityDetails extends React.Component {
 							<li className="city-item-list__cool">{this.state.dbCity.cool5}</li>
 						</ol>
 						<p className="city-item__name">Traveler: {this.state.dbCity.userName}</p>
-						<div className="counter">
-							<button>🖐 </button>
-						</div>
+						<Counter SelectedCity={this.props.match.params.id} />
 					</div>
 	            </div>
             </div>
@@ -218,47 +213,42 @@ const anyEmpty = obj => {
 	}
 	return false;
 }
-// counts likes on cityPost
-// class Counter extends React.Component {
-// 	constructor(){
-// 		super();
-// 		this.state = {
-// 			Likes: 0
-// 		};
-// 		this.increment = this.increment.bind(this);
-// 	}
-// 	increment(){
-// 		const dbRef = firebase.database().ref('dbCity/likes')
-// 		dbRef.set(this.state.Likes);
-        
-// 		this.setState({
-// 			Likes: this.state.Likes + 1
 
-// 		});
-// 	}
-// 	componentDidMount(){
-// 		// const dbRef = firebase.database().ref('dbCity/likes');
-// 		// dbRef.on('setvalue', (res) => {
-// 		// 	const like = res.val();
-// 		// 	const likesArray = [];
-// 		// 	for (let key in like) {
-// 		// 		likesArray.set(like[key]);
-// 		// // assign the objects default key to be its new unique key!
-// 		// 	}
-// 		// 	this.setState({
-// 		// 		likes: likesArray
-// 		// 	});
-// 		// }); 			
-// 	}
-// 	render () {
-// 		return (
-// 			<div className="counter">
-// 				<button onClick={this.increment}>🖐 </button>
-// 				 "{this.state.Likes}"
-// 			</div>
-// 		)
-// 	}
-// }
+// counts likes on cityPost
+class Counter extends React.Component {
+	constructor(){
+		super();
+		this.state = {
+			Likes: 0
+		};
+		this.increment = this.increment.bind(this);
+	}
+	increment(){
+		const dbRef = firebase.database().ref(this.props.SelectedCity + '/likes');
+		dbRef.set(this.state.likes + 1);
+	}
+	componentDidMount(){
+		const dbRef = firebase.database().ref(this.props.SelectedCity + '/likes');
+		dbRef.on('value', (snapshot) => {
+			console.log(snapshot.val());
+			if (snapshot.val() === null) {
+				dbRef.set(0);
+			} else {
+				this.setState({
+					likes: snapshot.val()
+				});
+			}
+		});			
+	}
+	render () {
+		return (
+			<div className="counter">
+				<button onClick={this.increment}>🖐 </button>
+				 "{this.state.likes}" Hi 5's
+			</div>
+		)
+	}
+}
 class App extends React.Component {
 	constructor() {
 		super();
