@@ -6,6 +6,8 @@ import {
 	Route
 } from 'react-router-dom';
 
+import { Link as ScrollLink, Element } from 'react-scroll';
+
   // Initialize Firebase
   var config = {
 	apiKey: "AIzaSyBEgr2IMuDGrIGTqzil5hZE6GP56P68OP0",
@@ -60,23 +62,25 @@ class CityGallery extends React.Component {
 					<h2>POST YOUR ADVENTURE!</h2>
 					<h3>Share Your Favourite City Pic & Hi 5 Moments By Posting here! </h3>
 				</div>
-				<form>
-					<label htmlFor="pic">Upload:</label>
-					 <input name="pic" accept="image/*" onChange={this.handleUpload} type type="file" />
-					 <label htmlFor="city">City:</label>
-					<input name="city" value={this.state.city} onChange={this.handleChange} type type="text" placeholder="Enter the City" />
-					<label htmlFor="cool1">Hi 5s:</label>
-					<input name="cool1" value={this.state.cool1} onChange={this.handleChange} type type="text" placeholder="#1 cool thing" />
-					<input name="cool2" value={this.state.cool2} onChange={this.handleChange} type type="text" placeholder="#2 cool thing" />
-					<input name="cool3" value={this.state.cool3} onChange={this.handleChange} type type="text" placeholder="#3 cool thing" />
-					<input name="cool4" value={this.state.cool4} onChange={this.handleChange} type type="text" placeholder="#4 cool thing" />
-					<input name="cool5" value={this.state.cool5} onChange={this.handleChange} type type="text" placeholder="#5 cool thing" />
-					<label htmlFor="userName">Name:</label>
-					<input name="userName" value={this.state.userName} onChange={this.handleChange} type type="text" placeholder="Enter your name" />
-					<div className="buttonContainer">
-						<button onClick={(e) => this.handleSubmit(e)} type="submit"><span>POST</span></button>
-					</div>
-				</form>
+				<Element name="form">
+					<form>
+						<label htmlFor="pic">Upload:</label>
+						 <input name="pic" accept="image/*" onChange={this.handleUpload} type type="file" />
+						 <label htmlFor="city">City:</label>
+						<input name="city" value={this.state.city} onChange={this.handleChange} type type="text" placeholder="Enter the City" />
+						<label htmlFor="cool1">Hi 5s:</label>
+						<input name="cool1" value={this.state.cool1} onChange={this.handleChange} type type="text" placeholder="#1 cool thing" />
+						<input name="cool2" value={this.state.cool2} onChange={this.handleChange} type type="text" placeholder="#2 cool thing" />
+						<input name="cool3" value={this.state.cool3} onChange={this.handleChange} type type="text" placeholder="#3 cool thing" />
+						<input name="cool4" value={this.state.cool4} onChange={this.handleChange} type type="text" placeholder="#4 cool thing" />
+						<input name="cool5" value={this.state.cool5} onChange={this.handleChange} type type="text" placeholder="#5 cool thing" />
+						<label htmlFor="userName">Name:</label>
+						<input name="userName" value={this.state.userName} onChange={this.handleChange} type type="text" placeholder="Enter your name" />
+						<div className="buttonContainer">
+							<button onClick={(e) => this.handleSubmit(e)} type="submit"><span>POST</span></button>
+						</div>
+					</form>
+				</Element>
 				<footer>
 					<p>&hearts;Thank you for visiting! &copy; 2017 KodeByKhim</p>
 				</footer>
@@ -274,6 +278,7 @@ class App extends React.Component {
 					<nav>
 						<h1 className="title">Hi 5</h1>
 						<Link to="/">City Gallery</Link>
+						<ScrollLink to="form" smooth={true} duration={500}>Form</ScrollLink>
 						<div className="nav-arrow">
 							
 						</div>
